@@ -4,6 +4,7 @@ import Pagination from "../components/Pagination";
 import ServiceStatusBadge from "../components/ServiceStatusBadge";
 import { getServices, type Service } from "../api/service";
 import RenewServiceModal from "../components/RenewServiceModal";
+import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Services() {
@@ -19,6 +20,28 @@ export default function Services() {
     const perPage = 10;
 
     const navigate = useNavigate();
+
+    const openGamePanel = async () => {
+        try {
+            const res = await api.post("/sso/token");
+            console.log(res);
+            const gamepPanelUrl = res.data.data.url;
+            if (res.data.code !== 200) {
+                alert(res.data.message);
+                return;
+            }
+
+            const token = res.data.data.token;
+
+            const fullUrl = `${gamepPanelUrl}?token=${token}`;
+
+            // redirect ke Game Panel
+            window.open(fullUrl, "_blank");
+        } catch (err) {
+            console.error(err);
+            alert("Gagal membuka Game Panel");
+        }
+    };
 
     useEffect(() => {
         const fetchServices = async () => {
@@ -89,7 +112,20 @@ export default function Services() {
                                                     Renew
                                                 </button>
                                             ) : (
-                                                <span className="text-gray-400 text-sm">—</span>
+                                                ''
+                                            )}
+
+                                            {svc.status === "active" ? (
+                                                <button
+                                                    onClick={() =>
+                                                        openGamePanel()
+                                                    }
+                                                    className="text-blue-400 hover:underline text-sm"
+                                                >
+                                                    Game Panel
+                                                </button>
+                                            ) : (
+                                                ''
                                             )}
                                         </td>
 
