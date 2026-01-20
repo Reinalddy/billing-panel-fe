@@ -1,18 +1,4 @@
-import axios from "axios";
-
-const API_URL = import.meta.env.VITE_API_URL;
-
-if (!API_URL) {
-    throw new Error("VITE_API_URL is not defined");
-}
-
-const api = axios.create({
-    baseURL: API_URL,
-    headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-    },
-});
+import api from "./axios";
 
 export interface LoginPayload {
     email: string;
@@ -29,7 +15,8 @@ export interface RegisterPayload {
 export const login = (data: LoginPayload) =>
     api.post("/login", data);
 
-export const register = (data: RegisterPayload) => 
+export const register = (data: RegisterPayload) =>
     api.post("/register", data);
 
-export default api;
+export const getMe = () =>
+    api.get("/user/me");

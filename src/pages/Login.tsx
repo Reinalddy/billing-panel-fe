@@ -3,7 +3,7 @@ import AuthLayout from "../components/AuthLayout";
 import { login, type LoginPayload } from "../api/auth";
 import { AxiosError } from "axios";
 import type { ApiErrorResponse } from "../types/api";
-
+import { useAuth } from "../hooks/useAuth";
 
 export default function Login() {
     const [form, setForm] = useState<LoginPayload>({
@@ -11,6 +11,7 @@ export default function Login() {
         password: "",
     });
 
+    const { loginSuccess } = useAuth();
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
 
@@ -27,15 +28,13 @@ export default function Login() {
             const response = await login(form);
             if (response.data.code === 200) {
                 // SAVE TOKKEN
-                localStorage.setItem("token", response.data.data.token);
-                localStorage.setItem("user", JSON.stringify(response.data.data.user));
-                alert("Register success, silakan login");
+                loginSuccess(response.data.data.token);
+
+                alert("Login success");
                 window.location.href = "/user/dashboard";
             } else {
                 setError(response.data.message);
             }
-
-            // nanti redirect ke dashboard
         } catch (err) {
             const error = err as AxiosError<ApiErrorResponse>;
             setError(error.response?.data?.message || "Login gagal");
