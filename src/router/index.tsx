@@ -4,6 +4,9 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 import Products from "../pages/Products";
+import Invoices from "../pages/Invoices";
+import InvoiceDetailPage from "../pages/InvoiceDetail";
+
 import { useAuth } from "../hooks/useAuth";
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
@@ -30,12 +33,28 @@ export default function Router() {
                         </ProtectedRoute>
                     }
                 />
-
                 <Route
                     path="/user/products"
                     element={
                         <ProtectedRoute>
                             <Products />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/user/invoices"
+                    element={
+                        <ProtectedRoute>
+                            <Invoices />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/user/invoices/:id"
+                    element={
+                        <ProtectedRoute>
+                            <InvoiceDetailPage />
                         </ProtectedRoute>
                     }
                 />
