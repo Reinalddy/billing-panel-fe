@@ -8,6 +8,7 @@ import Invoices from "../pages/Invoices";
 import InvoiceDetailPage from "../pages/InvoiceDetail";
 
 import { useAuth } from "../hooks/useAuth";
+import Services from "../pages/Services";
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
     const { user, loading } = useAuth();
@@ -55,6 +56,15 @@ export default function Router() {
                     element={
                         <ProtectedRoute>
                             <InvoiceDetailPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/user/services"
+                    element={
+                        <ProtectedRoute>
+                            <Services />
                         </ProtectedRoute>
                     }
                 />
