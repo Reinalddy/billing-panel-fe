@@ -15,10 +15,10 @@ export default function Sidebar() {
 
             {/* Menu */}
             <nav className="flex-1 p-4 space-y-2">
-                <SidebarItem to="/dashboard" icon="🏠" label="Dashboard" />
-                <SidebarItem to="/products" icon="📦" label="Products" />
-                <SidebarItem to="/services" icon="🧾" label="My Services" />
-                <SidebarItem to="/invoices" icon="💳" label="Invoices" />
+                <SidebarItem to="/user/dashboard" icon="🏠" label="Dashboard" />
+                <SidebarItem to="/user/products" icon="📦" label="Products" />
+                <SidebarItem to="/user/services" icon="🧾" label="My Services" />
+                <SidebarItem to="/user/invoices" icon="💳" label="Invoices" />
             </nav>
 
             {/* Logout */}

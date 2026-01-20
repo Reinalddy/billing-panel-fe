@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
+import Products from "../pages/Products";
 import { useAuth } from "../hooks/useAuth";
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
@@ -29,6 +30,16 @@ export default function Router() {
                         </ProtectedRoute>
                     }
                 />
+
+                <Route
+                    path="/user/products"
+                    element={
+                        <ProtectedRoute>
+                            <Products />
+                        </ProtectedRoute>
+                    }
+                />
+
             </Routes>
         </BrowserRouter>
     );
