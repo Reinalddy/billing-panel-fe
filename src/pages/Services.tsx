@@ -3,14 +3,22 @@ import DashboardLayout from "../components/DashboardLayout";
 import Pagination from "../components/Pagination";
 import ServiceStatusBadge from "../components/ServiceStatusBadge";
 import { getServices, type Service } from "../api/service";
+import RenewServiceModal from "../components/RenewServiceModal";
+import { useNavigate } from "react-router-dom";
 
 export default function Services() {
     const [services, setServices] = useState<Service[]>([]);
     const [page, setPage] = useState(1);
     const [lastPage, setLastPage] = useState(1);
     const [loading, setLoading] = useState(true);
+    const [selectedService, setSelectedService] = useState<{
+        id: number;
+        name: string;
+    } | null>(null);
 
     const perPage = 10;
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchServices = async () => {
@@ -67,9 +75,15 @@ export default function Services() {
                                                 : "-"}
                                         </td>
                                         <td className="py-3 px-4">
-                                            {svc.status === "active" ||
-                                                svc.status === "expired" ? (
+                                            {/* svc.status === "active" || */}
+                                            {svc.status === "expired" ? (
                                                 <button
+                                                    onClick={() =>
+                                                        setSelectedService({
+                                                            id: svc.id,
+                                                            name: svc.service_name,
+                                                        })
+                                                    }
                                                     className="text-indigo-600 hover:underline text-sm"
                                                 >
                                                     Renew
@@ -78,6 +92,7 @@ export default function Services() {
                                                 <span className="text-gray-400 text-sm">—</span>
                                             )}
                                         </td>
+
                                     </tr>
                                 ))}
                             </tbody>
@@ -91,6 +106,19 @@ export default function Services() {
                     />
                 </>
             )}
+
+            {selectedService && (
+                <RenewServiceModal
+                    serviceId={selectedService.id}
+                    serviceName={selectedService.name}
+                    onClose={() => setSelectedService(null)}
+                    onSuccess={() => {
+                        setSelectedService(null);
+                        navigate("/user/invoices");
+                    }}
+                />
+            )}
+
         </DashboardLayout>
     );
 }

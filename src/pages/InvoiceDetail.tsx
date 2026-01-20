@@ -45,6 +45,7 @@ export default function InvoiceDetailPage() {
         const fetchInvoice = async () => {
             try {
                 const res = await getInvoiceDetail(Number(id));
+                console.log(res);
                 setInvoice(res.data.data);
             } finally {
                 setLoading(false);
