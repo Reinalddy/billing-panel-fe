@@ -78,7 +78,7 @@ export default function CheckoutPreviewModal({
 
             // sukses → tutup modal & redirect
             onClose();
-            navigate("/user/dashboard"); // atau "/services"
+            navigate("/user/services"); // atau "/services"
         } catch (err) {
             const axiosError = err as AxiosError<ApiErrorResponse>;
             setError(
