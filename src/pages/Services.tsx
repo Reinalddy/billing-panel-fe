@@ -24,7 +24,6 @@ export default function Services() {
     const openGamePanel = async () => {
         try {
             const res = await api.post("/sso/token");
-            console.log(res);
             const gamepPanelUrl = res.data.data.url;
             if (res.data.code !== 200) {
                 alert(res.data.message);
