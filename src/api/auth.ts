@@ -20,3 +20,14 @@ export const register = (data: RegisterPayload) =>
 
 export const getMe = () =>
     api.get("/user/me");
+
+export const forgotPassword = (email: string) =>
+    api.post("/auth/forgot-password", { email });
+
+export const resetPassword = (payload: {
+    email: string;
+    token: string;
+    password: string;
+    password_confirmation: string;
+}) =>
+    api.post("/auth/reset-password", payload);

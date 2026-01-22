@@ -9,6 +9,8 @@ import InvoiceDetailPage from "../pages/InvoiceDetail";
 
 import { useAuth } from "../hooks/useAuth";
 import Services from "../pages/Services";
+import ForgotPassword from "../pages/ForgotPassword";
+import ResetPassword from "../pages/ResetPassword";
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
     const { user, loading } = useAuth();
@@ -25,6 +27,8 @@ export default function Router() {
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
 
                 <Route
                     path="/user/dashboard"

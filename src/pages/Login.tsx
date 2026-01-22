@@ -4,6 +4,7 @@ import { login, type LoginPayload } from "../api/auth";
 import { AxiosError } from "axios";
 import type { ApiErrorResponse } from "../types/api";
 import { useAuth } from "../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 export default function Login() {
     const [form, setForm] = useState<LoginPayload>({
@@ -80,10 +81,21 @@ export default function Login() {
 
             <p className="text-center text-sm text-gray-500 mt-6">
                 Belum punya akun?{" "}
-                <a href="/register" className="text-indigo-600 font-medium">
+                <Link to="/register" className="text-indigo-600 font-medium">
                     Register
-                </a>
+                </Link>
             </p>
+
+            <p className="text-center text-sm text-gray-500 mt-6">
+                <Link
+                    to="/forgot-password"
+                    className="text-sm text-indigo-600 hover:underline"
+                >
+                    Forgot password?
+                </Link>
+            </p>
+
+
         </AuthLayout>
     );
 }
